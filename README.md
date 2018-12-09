@@ -1,6 +1,6 @@
 # chat-nodejs
 
-  Install node-v10.14.1-x86 or
+  Install https://nodejs.org/en/ node-v10.14.1-x86 or
   
   apt install nodejs	
 
