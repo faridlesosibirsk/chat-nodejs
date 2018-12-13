@@ -19,12 +19,12 @@ app.get('/', function (req, res) {
 //subscribe to the new client connection event
 io.sockets.on('connection', function (client) {
 //client is subscribing to timer with interval
-  client.on('subscribeToTimer', (interval) => {
+  client.on('subscribeToTimer', (1000) => {
         try {
-    console.log('client is subscribing to timer with interval ', interval);
+    console.log('client is subscribing to timer with interval ', 1000);
     setInterval(() => {
       client.broadcast.emit('timer', new Date());
-    }, interval);
+    }, 1000);
         } catch (e) {
             console.log(e);
             client.disconnect();
