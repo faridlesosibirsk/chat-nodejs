@@ -74,7 +74,7 @@ var element = document.querySelector('#timer');
 	var password  = '123';
         var socket = io.connect('http://localhost:8008');
         var name = 'User' + (Math.round(Math.random() * 10000));
-	var timer = $("#timer");
+	var timers = $("#timer");
         var messages = $("#messages");
         var message_txt = $("#message_text")
         $('.chat .nick').text(name);
