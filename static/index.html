@@ -75,11 +75,11 @@
         function msg_time(nick, message) {
             var m = '<div class="msg">' +
                     '<span class="user">' + 'Date()' + ':</span> '
-                    + safe(timer) +
+                    + safe(message) +
                     '</div>';
-            timers
+            messages
                     .append(m)
-                    .scrollTop(timers[0].scrollHeight);
+                    .scrollTop(messages[0].scrollHeight);
         }
 
         function msg_system(message) {
