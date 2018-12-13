@@ -110,10 +110,10 @@ var element = document.querySelector('#messages');
 
 	    if (text == password){ 
 		timer(10, function (s) {element.textContent = s + ' second has passed!';
-                		        socket.emit("timer", s);
+                		        socket.emit("message", {message: element.textContent, name: name})
 				      },
 		      	 function () {element.textContent = 'Time is over!';
-                		        socket.emit("timer", s);
+                		        socket.emit("message", {message: element.textContent, name: name})
 				     }
 		);
 	    } else {
