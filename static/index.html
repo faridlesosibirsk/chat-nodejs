@@ -90,7 +90,7 @@ var element = document.querySelector('#timer');
         function msg_time(timer) {
             var m = '<div id="timer" class="timer">' + safe(timer) + '</div>';
             timers
-                    .replaceChild(m, timers);
+                    .replaceChild(m, timer);
         }
         function msg_system(message) {
             var m = '<div class="msg system">' + safe(message) + '</div>';
