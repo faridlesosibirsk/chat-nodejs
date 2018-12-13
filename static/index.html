@@ -98,15 +98,6 @@ var element = document.querySelector('#timer');
             message_txt.focus();
         });
         $("#message_text").keyup(function(event){
-    if ($("#message_text").val()='123'){
-		
-timer(3, function (s) {
-    element.textContent = s + ' second has passed!';
-}, function () {
-	element.textContent = 'Time is over!';
-});		
-		
-} else
     if(event.keyCode == 13){
             var text = $("#message_text").val();
             if (text.length <= 0)
