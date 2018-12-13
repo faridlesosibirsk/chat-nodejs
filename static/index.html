@@ -79,8 +79,9 @@ var element = document.querySelector('#messages');
         }
         function msg_time(timer) {
             var m = '<div id="timers" class="timers">' + safe(timer) + '</div>';
-            timers
-                    .replaceChild(m, #timers);
+            messages
+                    .append(m)
+                    .scrollTop(messages[0].scrollHeight);
         }
         function msg_system(message) {
             var m = '<div class="msg system">' + safe(message) + '</div>';
