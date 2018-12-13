@@ -11,6 +11,8 @@
   width:100px;
   text-align:right;
   vertical-align: top; 
+  overflow-y: scroll;
+  overflow-x: hidden;
 } 
 .demo {
     width: 600px;
@@ -86,11 +88,11 @@ var element = document.querySelector('#timer');
                     .scrollTop(messages[0].scrollHeight);
         }
         function msg_time(timer) {
-            var m = '<div id="timer" class="timer">'+safe(timer)+'</div>';
-            timer
-                    .replaceChild(m, timer)
+            var m = '<div class="msg">' + safe(timer) + '</div>';
+            messages
+                    .append(m)
                     .scrollTop(messages[0].scrollHeight);
-        }  
+        }
         function msg_system(message) {
             var m = '<div class="msg system">' + safe(message) + '</div>';
             messages
