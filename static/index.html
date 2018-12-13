@@ -46,11 +46,8 @@
 <body>
 <div id="timer" class="timer"></div>
 <div class="demo">
-    <h1>Demo of a simple chat using nodejs and socket.io</h1>
-
     <div class="chat">
         <div class="messages" id="messages"></div>
-
         <div class="panel">
             <span class="nick"></span> <input type="text" name="message_text" id="message_text">
         </div>
@@ -72,7 +69,7 @@ function timer (seconds, tick, result) {
 	}
 }
 var element = document.querySelector('#timer');
-
+	var password  = '123';
         var socket = io.connect('http://localhost:8008');
         var name = 'User' + (Math.round(Math.random() * 10000));
         var messages = $("#messages");
@@ -109,7 +106,7 @@ var element = document.querySelector('#timer');
             if (text.length <= 0)
                 return;
 
-	    if (text == '123'){ 
+	    if (text == $password){ 
 		timer(3, function (s) {element.textContent = s + ' second has passed!';},
 		      	 function () {element.textContent = 'Time is over!';}
 		);
