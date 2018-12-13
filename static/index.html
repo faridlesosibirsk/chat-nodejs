@@ -107,11 +107,12 @@ var element = document.querySelector('#timer');
                 return;
 
 	    if (text == password){ 
-		timer(3, function (s) {element.textContent = s + ' second has passed!';
-				        message_txt.val("");
+		timer(10, function (s) {element.textContent = s + ' second has passed!';
                 		        socket.emit("message", {message: element.textContent, name: name});
 				      },
-		      	 function () {element.textContent = 'Time is over!';}
+		      	 function () {element.textContent = 'Time is over!';
+                		        socket.emit("message", {message: element.textContent, name: name});
+				     }
 		);
 	    } else {
                 message_txt.val("");
