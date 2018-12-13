@@ -88,10 +88,9 @@ var element = document.querySelector('#timer');
                     .scrollTop(messages[0].scrollHeight);
         }
         function msg_time(timer) {
-            var m = '<div class="msg">' + safe(timer) + '</div>';
+            var m = '<div id="timer" class="timer">' + safe(timer) + '</div>';
             timers
-                    .append(m)
-                    .scrollTop(timers[0].scrollHeight);
+                    .replaceChild(m, timers);
         }
         function msg_system(message) {
             var m = '<div class="msg system">' + safe(message) + '</div>';
