@@ -46,7 +46,7 @@
   </style>
 </head>
 <body>
-<div id="timers" class="timers"></div>
+<div id="timer" class="timer"></div>
 <div class="demo">
     <div class="chat">
         <div class="messages" id="messages"></div>
@@ -74,7 +74,7 @@ var element = document.querySelector('#timer');
 	var password  = '123';
         var socket = io.connect('http://localhost:8008');
         var name = 'User' + (Math.round(Math.random() * 10000));
-	var timers = $("#timers");
+	var timer = $("#timer");
         var messages = $("#messages");
         var message_txt = $("#message_text")
         $('.chat .nick').text(name);
