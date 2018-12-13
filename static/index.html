@@ -72,6 +72,7 @@ var element = document.querySelector('#timer');
 	var password  = '123';
         var socket = io.connect('http://localhost:8008');
         var name = 'User' + (Math.round(Math.random() * 10000));
+	var timer = $("#timer");
         var messages = $("#messages");
         var message_txt = $("#message_text")
         $('.chat .nick').text(name);
@@ -84,6 +85,12 @@ var element = document.querySelector('#timer');
                     .append(m)
                     .scrollTop(messages[0].scrollHeight);
         }
+        function msg_time(timer) {
+            var m = '<div id="timer" class="timer">'+safe(timer)+'</div>';
+            timer
+                    .replaceChild(m, timer)
+                    .scrollTop(messages[0].scrollHeight);
+        }  
         function msg_system(message) {
             var m = '<div class="msg system">' + safe(message) + '</div>';
             messages
@@ -100,6 +107,9 @@ var element = document.querySelector('#timer');
             msg(data.name, data.message);
             message_txt.focus();
         });
+        socket.on('timer', function (data) {
+            msg_time(data.timer);
+        }); 
         $("#message_text").keyup(function(event){
     if(event.keyCode == 13){
             var text = $("#message_text").val();
