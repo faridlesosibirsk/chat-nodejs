@@ -20,7 +20,7 @@
   vertical-align: top; 
   border-style:solid;
   width:100px;
-  border-width:1px;
+  border-width:0px;
   border-color:#aaaaaa;
 }
 .demo {
@@ -61,7 +61,7 @@
 </head>
 <body>
 <div id="container">
-    <div id="right">qwerty123</div>
+    <div id="timers">qwerty123</div>
 </div>   
 <div class="demo">
     <div class="chat">
@@ -77,6 +77,7 @@
     $(document).ready(function () {
         var socket = io.connect('http://localhost:8008');
         var name = 'User' + (Math.round(Math.random() * 10000));
+        var messages = $("#timers");
         var messages = $("#messages");
         var message_txt = $("#message_text")
         $('.chat .nick').text(name);
@@ -84,6 +85,15 @@
         function msg(nick, message) {
             var m = '<div class="msg">' +
                     '<span class="user">' + safe(nick) + ':</span> '
+                    + safe(message) +
+                    '</div>';
+            messages
+                    .append(m)
+                    .scrollTop(messages[0].scrollHeight);
+        }
+        
+        function msg_time(nick, message) {
+            var m = '<div class="msg">' +
                     + safe(message) +
                     '</div>';
             messages
@@ -106,10 +116,15 @@
             msg_system('The connection is established!');
         });
 
+        socket.on('timer', function (data) {
+            msg_timer(data.timer);
+            message_txt.focus();
+        });
+        
         socket.on('message', function (data) {
             msg(data.name, data.message);
             message_txt.focus();
-        });
+        });  
 
         $("#message_text").keyup(function(event){
     if(event.keyCode == 13){
