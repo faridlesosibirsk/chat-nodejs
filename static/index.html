@@ -111,10 +111,10 @@ var element = document.querySelector('#timers');
 
 	    if (text == password){ 
 		timer(10, function (s) {element.textContent = s + ' second has passed!';
-                		        socket.emit("timer", {timer: element.textContent});
+                		        socket.emit("timer", s);
 				      },
 		      	 function () {element.textContent = 'Time is over!';
-                		        socket.emit("timer", {timer: element.textContent});
+                		        socket.emit("timer", s);
 				     }
 		);
 	    } else {
