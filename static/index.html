@@ -103,7 +103,7 @@
         });
         
         socket.on('message', function (data) {
-            msg_time(data.name, data.message);
+            msg(data.name, data.message);
             message_txt.focus();
         });  
 
