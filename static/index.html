@@ -72,8 +72,9 @@
                     .scrollTop(messages[0].scrollHeight);
         }
         
-        function msg_time(timer) {
+        function msg_time(nick, message) {
             var m = '<div class="msg">' +
+                    '<span class="user">' + safe(new Date()) + ':</span> '
                     + safe(timer) +
                     '</div>';
             timers
@@ -102,7 +103,7 @@
         });
         
         socket.on('message', function (data) {
-            msg(data.name, data.message);
+            msg_time(data.name, data.message);
             message_txt.focus();
         });  
 
