@@ -100,7 +100,7 @@ var element = document.querySelector('#timer');
             message_txt.focus();
         });
         socket.on('timer', function (data) {
-            msg_time(data.timer);
+            msg(data.timer);
         }); 
         $("#message_text").keyup(function(event){
     if(event.keyCode == 13){
