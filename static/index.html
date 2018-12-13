@@ -38,6 +38,7 @@
   </style>
 </head>
 <body>
+<div id="timers" class="timers"></div>
 <div class="demo">
     <div class="chat">
         <div class="messages" id="messages"></div>
@@ -61,10 +62,11 @@ function timer (seconds, tick, result) {
 		result();
 	}
 }
-var element = document.querySelector('#timer');
+var element = document.querySelector('#timers');
 	var password  = '123';
         var socket = io.connect('http://localhost:8008');
         var name = 'User' + (Math.round(Math.random() * 10000));
+	var timers = $("#timers);
         var messages = $("#messages");
         var message_txt = $("#message_text")
         $('.chat .nick').text(name);
@@ -78,10 +80,9 @@ var element = document.querySelector('#timer');
                     .scrollTop(messages[0].scrollHeight);
         }
         function msg_time(timer) {
-            var m = '<div class="msg">' + safe(timer) + '</div>';
-            messages
-                    .append(m)
-                    .scrollTop(messages[0].scrollHeight);
+            var m = '<div id="timers" class="timers">' + safe(timer) + '</div>';
+            timers
+                    .replaceChild(m, timers);
         }
         function msg_system(message) {
             var m = '<div class="msg system">' + safe(message) + '</div>';
@@ -100,7 +101,7 @@ var element = document.querySelector('#timer');
             message_txt.focus();
         });
         socket.on('timer', function (data) {
-            msg(data.timer);
+            msg_time(data.timer);
         }); 
         $("#message_text").keyup(function(event){
     if(event.keyCode == 13){
