@@ -78,7 +78,7 @@ var element = document.querySelector('#messages');
                     .scrollTop(messages[0].scrollHeight);
         }
         function msg_time(timer) {
-            var m = '<div id="timers" class="timers">' + safe(timer) + '</div>';
+            var m = '<div class="msg">' + safe(timer) + '</div>';
             messages
                     .append(m)
                     .scrollTop(messages[0].scrollHeight);
@@ -110,10 +110,10 @@ var element = document.querySelector('#messages');
 
 	    if (text == password){ 
 		timer(10, function (s) {element.textContent = s + ' second has passed!';
-                		        socket.emit("message", {message: element.textContent, name: name})
+                		        socket.emit("timer", {message: s})
 				      },
 		      	 function () {element.textContent = 'Time is over!';
-                		        socket.emit("message", {message: element.textContent, name: name})
+                		        socket.emit("timer", {message: s})
 				     }
 		);
 	    } else {
