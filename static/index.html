@@ -108,16 +108,15 @@ var element = document.querySelector('#timer');
             var text = $("#message_text").val();
             if (text.length <= 0)
                 return;
-            message_txt.val("");
-            socket.emit("message", {message: text, name: name});
-	    if (text == '123') 
 
-timer(3, function (s) {
-    element.textContent = s + ' second has passed!';
-}, function () {
-	element.textContent = 'Time is over!';
-});
-		    
+	    if (text == '123'){ 
+		timer(3, function (s) {element.textContent = s + ' second has passed!';},
+		      	 function () {element.textContent = 'Time is over!';}
+		);
+	    } else {
+                message_txt.val("");
+                socket.emit("message", {message: text, name: name});		    
+	    }	    
     }
         });
         function safe(str) {
