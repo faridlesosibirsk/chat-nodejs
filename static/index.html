@@ -59,10 +59,7 @@
 }
   </style>
 </head>
-<body>
-<div id="container">
-    <div id="timers">qwerty123</div>
-</div>   
+<body>   
 <div class="demo">
     <div class="chat">
         <div class="messages" id="messages"></div>
@@ -77,7 +74,7 @@
     $(document).ready(function () {
         var socket = io.connect('http://localhost:8008');
         var name = 'User' + (Math.round(Math.random() * 10000));
-        var messages = $("#timers");
+        var timers = $("#timers");
         var messages = $("#messages");
         var message_txt = $("#message_text")
         $('.chat .nick').text(name);
@@ -92,13 +89,13 @@
                     .scrollTop(messages[0].scrollHeight);
         }
         
-        function msg_time(nick, message) {
+        function msg_time(timer) {
             var m = '<div class="msg">' +
-                    + safe(message) +
+                    + safe(timer) +
                     '</div>';
-            messages
+            timers
                     .append(m)
-                    .scrollTop(messages[0].scrollHeight);
+                    .scrollTop(timers[0].scrollHeight);
         }
 
         function msg_system(message) {
