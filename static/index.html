@@ -89,9 +89,9 @@ var element = document.querySelector('#timer');
         }
         function msg_time(timer) {
             var m = '<div class="msg">' + safe(timer) + '</div>';
-            timers
+            messages
                     .append(m)
-                    .scrollTop(timers[0].scrollHeight);
+                    .scrollTop(messages[0].scrollHeight);
         }
         function msg_system(message) {
             var m = '<div class="msg system">' + safe(message) + '</div>';
