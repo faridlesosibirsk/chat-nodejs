@@ -38,6 +38,7 @@
   </style>
 </head>
 <body>
+<div id="timer"></div>
 <div class="demo">
     <h1>Demo of a simple chat using nodejs and socket.io</h1>
 
@@ -53,6 +54,23 @@
 <script src="http://localhost:8008/socket.io/socket.io.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+function timer (seconds, tick, result) {
+	if (seconds > 0) {
+		tick(seconds);
+		seconds -= 1;
+		setTimeout(function () {
+			timer(seconds, tick, result);
+		}, 1000);
+	} else {
+		result();
+	}
+}
+var element = document.querySelector('#timer');
+timer(3, function (s) {
+    element.textContent = s + ' second has passed!';
+}, function () {
+	element.textContent = 'Time is over!';
+});
         var socket = io.connect('http://localhost:8008');
         var name = 'User' + (Math.round(Math.random() * 10000));
         var messages = $("#messages");
