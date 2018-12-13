@@ -95,12 +95,14 @@
             message_txt.focus();
         });
 
-        $("#message_btn").click(function () {
+        $("#message_btn")..keyup(function(event){
+    if(event.keyCode == 13){
             var text = $("#message_text").val();
             if (text.length <= 0)
                 return;
             message_txt.val("");
             socket.emit("message", {message: text, name: name});
+    }
         });
 
         function safe(str) {
