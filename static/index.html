@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -14,7 +14,6 @@
     font-family: "PT Sans", Verdana, Arial, sans-serif;
     font-size: 13px;
 }
-
 .chat .messages{
     height: 300px;
     border: 1px solid #d4d4d4;
@@ -22,19 +21,15 @@
     overflow-x: hidden;
     padding: 5px;
 }
-
 .chat .messages .user{
     color: #B22222;
 }
-
 .chat .message{
     width: 70%;
 }
-
 .chat .panel{
     margin-top: 8px;
 }
-
 #message_text{
     width: 60%;
     display: inline-block;
@@ -42,10 +37,13 @@
 }
   </style>
 </head>
-<body>   
+<body>
 <div class="demo">
+    <h1>Demo of a simple chat using nodejs and socket.io</h1>
+
     <div class="chat">
         <div class="messages" id="messages"></div>
+
         <div class="panel">
             <span class="nick"></span> <input type="text" name="message_text" id="message_text">
         </div>
@@ -57,11 +55,9 @@
     $(document).ready(function () {
         var socket = io.connect('http://localhost:8008');
         var name = 'User' + (Math.round(Math.random() * 10000));
-        var timers = $("#timers");
         var messages = $("#messages");
         var message_txt = $("#message_text")
         $('.chat .nick').text(name);
-
         function msg(nick, message) {
             var m = '<div class="msg">' +
                     '<span class="user">' + safe(nick) + ':</span> '
@@ -71,42 +67,22 @@
                     .append(m)
                     .scrollTop(messages[0].scrollHeight);
         }
-        
-        function msg_time(nick, message) {
-            var m = '<div class="msg">' +
-                    '<span class="user">' + 'Date()' + ':</span> '
-                    + safe(message) +
-                    '</div>';
-            messages
-                    .append(m)
-                    .scrollTop(messages[0].scrollHeight);
-        }
-
         function msg_system(message) {
             var m = '<div class="msg system">' + safe(message) + '</div>';
             messages
                     .append(m)
                     .scrollTop(messages[0].scrollHeight);
         }
-
         socket.on('connecting', function () {
             msg_system('Connection...');
         });
-
         socket.on('connect', function () {
             msg_system('The connection is established!');
         });
-
-        socket.on('timer', function (data) {
-            msg_time(data.timer);
-            message_txt.focus();
-        });
-        
         socket.on('message', function (data) {
             msg(data.name, data.message);
             message_txt.focus();
-        });  
-
+        });
         $("#message_text").keyup(function(event){
     if(event.keyCode == 13){
             var text = $("#message_text").val();
@@ -116,7 +92,6 @@
             socket.emit("message", {message: text, name: name});
     }
         });
-
         function safe(str) {
             return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
