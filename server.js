@@ -25,6 +25,18 @@ io.sockets.on('connection', function (client) {
       client.broadcast.emit('timer', new Date());
     }, interval);
   });
+    //subscribe to the timer event from the client
+    client.on('timer', function (timer) {
+        try {
+            //send a message to yourself
+            client.emit('timer', timer);
+            //send a message to all customers except yourself
+            client.broadcast.emit('timer', timer);
+        } catch (e) {
+            console.log(e);
+            client.disconnect();
+        }
+    });
     //subscribe to the message event from the client
     client.on('message', function (message) {
         try {
