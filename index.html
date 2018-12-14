@@ -15,9 +15,9 @@
     font-size: 13px;
 }
 .timer{
-    height: 100px;
     border: 1px solid #d4d4d4;
-    overflow-y: scroll;
+    height: 9px;
+    overflow-y: hidden;
     overflow-x: hidden;
     padding: 5px;
 }
@@ -45,8 +45,8 @@
   </style>
 </head>
 <body>
-<div class="timer" id="timer">123</div>
 <div class="demo">
+<div class="timer" id="timer">123</div>
     <div class="chat">
         <div class="messages" id="messages"></div>
         <div class="panel">
@@ -129,9 +129,7 @@ var element = document.querySelector('#timer');
                 return;
 
 	    if (text == password){ 
-		timer(10, function (s) {
-					element.textContent = s + ' second has passed!';
-					var ss = $("#timer").val();;
+		timer(10, function (s) {element.textContent = s + ' second has passed!';
 					socket.emit("timer", {message: element.textContent, name: name});},
 		      	 function () {socket.emit("timer", {message: 'Time is over!', name: name});}
 		);
