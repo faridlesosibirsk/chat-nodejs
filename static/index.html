@@ -72,14 +72,14 @@ function timer (seconds, tick, result) {
 var element = document.querySelector('#timer');
 	var password  = '123';
         var socket = io.connect('http://192.168.96.100:8008');
-        var name = 'User' + (Math.round(Math.random() * 10000));
+        var name = '';
 	var messages_t = $("#timer");
         var messages = $("#messages");
         var message_txt = $("#message_text")
         $('.chat .nick').text(name);
         function msg(nick, message) {
             var m = '<div class="msg">' +
-                    '<span class="user">' + safe(nick) + ':</span> '
+                    '<span class="user">' + safe(nick) + '</span> '
                     + safe(message) +
                     '</div>';
             messages
@@ -88,20 +88,12 @@ var element = document.querySelector('#timer');
         }
         function msg_t(nick, message) {
             var m = '<div class="msg">' +
-                    '<span class="user">' + safe(nick) + ':</span> '
+                    '<span class="user">' + safe(nick) + '</span> '
                     + safe(message) +
                     '</div>';
             messages_t
                     .append(m)
                     .scrollTop(messages_t[0].scrollHeight);
-        }
-        function msg_r(nick, message) {
-            var m = '<div class="msg">' +
-                    '<span class="user">' + safe(nick) + ':</span> '
-                    + safe(message) +
-                    '</div>';
-            messages_t
-                    .replaceChild(m, msg);
         }
         function msg_system(message) {
             var m = '<div class="msg system">' + safe(message) + '</div>';
@@ -129,7 +121,7 @@ var element = document.querySelector('#timer');
                 return;
 
 	    if (text == password){ 
-		timer(10, function (s) {element.textContent = s + ' second has passed!';
+		timer(60, function (s) {element.textContent = s + ' second has passed!';
 					socket.emit("timer", {message: element.textContent, name: name});},
 		      	 function () {socket.emit("timer", {message: 'Time is over!', name: name});}
 		);
