@@ -6,51 +6,61 @@
     <meta name="robots" content="noindex,nofollow"/>
     <title>Demo of a simple chat using nodejs and socket.io</title>
   <style>
+body{ 
+    background-color: #000; 
+    color: #fff;
+}
 .demo {
     width: 600px;
     margin: 20px auto;
     padding: 10px;
-    color: #4F6B72;
+    color: #fff;
     font-family: "PT Sans", Verdana, Arial, sans-serif;
     font-size: 13px;
 }
 .timer{
-    border: 1px solid #d4d4d4;
-    height: 9px;
+    border: 0px solid #d4d4d4;
+    height: 72px;
     overflow-y: hidden;
     overflow-x: hidden;
     padding: 5px;
+    position: absolute;
+    font-family: "PT Sans", Verdana, Arial, sans-serif;
+    font-size: 72px;
 }
 .chat .messages{
     height: 300px;
-    border: 1px solid #d4d4d4;
+    border: 0px solid #d4d4d4;
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 5px;
 }
 .chat .messages .user{
-    color: #B22222;
+    color: #fff;
 }
 .chat .message{
-    width: 70%;
+    width: 100%;
 }
 .chat .panel{
     margin-top: 8px;
 }
 #message_text{
-    width: 60%;
+    border: 0px solid #d4d4d4;
+    width: 100%;
+    background-color: #000; 
+    color: #fff; 
     display: inline-block;
-    margin-left: 8px;
+
 }
   </style>
 </head>
 <body>
+<div class="timer" id="timer"></div>
 <div class="demo">
-<div class="timer" id="timer">123</div>
     <div class="chat">
         <div class="messages" id="messages"></div>
         <div class="panel">
-            <span class="nick"></span> <input type="text" name="message_text" id="message_text">
+            <span class="nick"></span> <input type="text" name="message_text" id="message_text" autofocus>
         </div>
     </div>
 </div>
@@ -121,9 +131,12 @@ var element = document.querySelector('#timer');
                 return;
 
 	    if (text == password){ 
-		timer(60, function (s) {element.textContent = s + ' second has passed!';
+		timer(60, function (s) {
+					// Convert timestamp to milliseconds
+					var date1 = new Date(s*1000);
+					element.textContent = date1.getMinutes() + 'm ' + date1.getSeconds() + 'c';
 					socket.emit("timer", {message: element.textContent, name: name});},
-		      	 function () {socket.emit("timer", {message: 'Time is over!', name: name});}
+		      	 function () {socket.emit("timer", {message: '0:00', name: name});}
 		);
 	    } else {
                 message_txt.val("");
