@@ -9,7 +9,7 @@ var app = express();
 var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server, options);
-server.listen(PORT, 'localhost');
+server.listen(PORT, '192.168.96.100');
  
 app.use('/static', express.static(__dirname + '/static'));
  

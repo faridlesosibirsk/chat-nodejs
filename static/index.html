@@ -14,6 +14,13 @@
     font-family: "PT Sans", Verdana, Arial, sans-serif;
     font-size: 13px;
 }
+.timer{
+    height: 100px;
+    border: 1px solid #d4d4d4;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 5px;
+}
 .chat .messages{
     height: 300px;
     border: 1px solid #d4d4d4;
@@ -38,6 +45,7 @@
   </style>
 </head>
 <body>
+<div class="timer" id="timer">123</div>
 <div class="demo">
     <div class="chat">
         <div class="messages" id="messages"></div>
@@ -47,7 +55,7 @@
     </div>
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://localhost:8008/socket.io/socket.io.js"></script>
+<script src="http://192.168.96.100:8008/socket.io/socket.io.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 function timer (seconds, tick, result) {
@@ -61,10 +69,11 @@ function timer (seconds, tick, result) {
 		result();
 	}
 }
-var element = document.querySelector('#messages');
+var element = document.querySelector('#timer');
 	var password  = '123';
-        var socket = io.connect('http://localhost:8008');
+        var socket = io.connect('http://192.168.96.100:8008');
         var name = 'User' + (Math.round(Math.random() * 10000));
+	var messages_t = $("#timer");
         var messages = $("#messages");
         var message_txt = $("#message_text")
         $('.chat .nick').text(name);
@@ -77,11 +86,22 @@ var element = document.querySelector('#messages');
                     .append(m)
                     .scrollTop(messages[0].scrollHeight);
         }
-        function msg_time(timer) {
-            var m = '<div class="msg">' + safe(timer) + '</div>';
-            messages
+        function msg_t(nick, message) {
+            var m = '<div class="msg">' +
+                    '<span class="user">' + safe(nick) + ':</span> '
+                    + safe(message) +
+                    '</div>';
+            messages_t
                     .append(m)
-                    .scrollTop(messages[0].scrollHeight);
+                    .scrollTop(messages_t[0].scrollHeight);
+        }
+        function msg_r(nick, message) {
+            var m = '<div class="msg">' +
+                    '<span class="user">' + safe(nick) + ':</span> '
+                    + safe(message) +
+                    '</div>';
+            messages_t
+                    .replaceChild(m, msg);
         }
         function msg_system(message) {
             var m = '<div class="msg system">' + safe(message) + '</div>';
@@ -100,7 +120,7 @@ var element = document.querySelector('#messages');
             message_txt.focus();
         });
         socket.on('timer', function (data) {
-            msg_time(data.timer);
+            msg_t(data.name, data.message);
         }); 
         $("#message_text").keyup(function(event){
     if(event.keyCode == 13){
@@ -109,12 +129,11 @@ var element = document.querySelector('#messages');
                 return;
 
 	    if (text == password){ 
-		timer(10, function (s) {element.textContent = s + ' second has passed!';
-                		        socket.emit("timer", {message: s})
-				      },
-		      	 function () {element.textContent = 'Time is over!';
-                		        socket.emit("timer", {message: s})
-				     }
+		timer(10, function (s) {
+					element.textContent = s + ' second has passed!';
+					var ss = $("#timer").val();;
+					socket.emit("timer", {message: element.textContent, name: name});},
+		      	 function () {socket.emit("timer", {message: 'Time is over!', name: name});}
 		);
 	    } else {
                 message_txt.val("");
