@@ -67,6 +67,11 @@
                     <span class="nick"></span> <input type="text" name="message_text" id="message_text" autofocus>
                 </div>
             </div>
+            <p>Отсчет <input id="value" type="number" style="width: 50px;" value="3600"/> секунд
+            <input id="start" type="button" value="start" />    
+            <input id="stop" type="button" value="stop" />
+            </p>
+            <p>максимум 1 час - 3600</p>
         </div>
 
         
@@ -107,7 +112,28 @@
             socket.on('timer', function (data) {
             msg_t(data.message);
             });
+            var interval = 1000,  // one second
+                timer = null;
 
+            $("#start").click(function() {
+            var value = $("#value").val(); // 10 minutes                
+              if (timer !== null) return;
+              timer = setInterval(function () {
+                var date1 = new Date(value * 1000);
+                if (value>0) {value = value - 1} else {
+                    clearInterval(timer);
+                    timer = null 
+                };
+                //document.getElementById('input').value = date1.getMinutes()+':'+date1.getSeconds();
+                socket.emit("timer", {message: date1.getMinutes() + ':' + date1.getSeconds()});
+                document.getElementById('value').value = value;
+              }, interval);
+            });
+            $("#stop").click(function() {
+              clearInterval(timer);
+              timer = null;
+              value = 0;
+            });
             $("#message_text").keyup(function(event){
             if (event.keyCode == 13){
             var text = $("#message_text").val();

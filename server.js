@@ -9,7 +9,7 @@ var app = express();
 var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server, options);
-server.listen(PORT, '192.168.96.100');
+server.listen(PORT, '127.0.0.1');
  
 app.use('/static', express.static(__dirname + '/static'));
  
@@ -21,9 +21,9 @@ io.sockets.on('connection', function (client) {
 //client is subscribing to timer with interval
   client.on('timer', (interval) => {
     console.log('client is subscribing to timer with interval ', interval);
-    setInterval(() => {
-      client.broadcast.emit('timer', new Date());
-    }, interval);
+    //setInterval(() => {
+    //  client.broadcast.emit('timer', new Date());
+    //}, interval);
   });
     //subscribe to the timer event from the client
     client.on('timer', function (timer) {
