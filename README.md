@@ -18,5 +18,7 @@
   
   node server --listen 127.0.0.1
 
-  http://127.0.0.1:8008
+  client http://127.0.0.1:8008
+  
+  admin http://127.0.0.1:8008/static/admin.html
 
