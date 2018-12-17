@@ -14,7 +14,7 @@ server.listen(PORT, '192.168.96.100');
 app.use('/static', express.static(__dirname + '/static'));
  
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/static/index.html');
 });
 //subscribe to the new client connection event
 io.sockets.on('connection', function (client) {
