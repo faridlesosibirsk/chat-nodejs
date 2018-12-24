@@ -4,19 +4,15 @@
   
   apt install nodejs	
 
-  "C:\Program Files\nodejs\npm" install --save express
+  "C:\Program Files\nodejs\npm" install
   
-  npm install --save express
-
-  "C:\Program Files\nodejs\npm" install --save socket.io
-  
-  npm install --save socket.io
+  npm install
 
   (npm audit fix)
 
-  "C:\Program Files\nodejs\node" server --listen 127.0.0.1
+  "C:\Program Files\nodejs\node" server
   
-  node server --listen 127.0.0.1
+  node server
 
   client http://127.0.0.1:8008
   
