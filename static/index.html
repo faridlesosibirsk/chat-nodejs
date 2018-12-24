@@ -76,15 +76,16 @@
         <script src="http://127.0.0.1:8008/socket.io/socket.io.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
-            var password = '123';
+            var reload = '123';
             var socket = io.connect('http://127.0.0.1:8008');
             var message_txt = $("#message_text");
             function msg(message) {
-            var m = '<div class="msg">'
-                    + message +
-                    '</div>';
-            $("#messages")
-                    .append(m).scrollTop($("#messages")[0].scrollHeight);
+	if (message == reload) {
+		location.reload();
+	} else {  
+            var m = '<div class="msg">' + message + '</div>';
+            $("#messages").append(m).scrollTop($("#messages")[0].scrollHeight);
+	};
             }
             function msg_t(message) {
               $("#timer").replaceWith("<div id='timer' class='timer'>"+ message +"</div>");
